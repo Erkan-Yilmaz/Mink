@@ -18,6 +18,20 @@ abstract class GeneralDriverTest extends TestCase
     }
 
     /**
+     * @group issue140
+     */
+    public function testIssue140()
+    {
+        $this->getSession()->visit($this->pathTo('/issue140.php'));
+
+        $this->getSession()->getPage()->fillField('cookie_value', 'some:value;');
+        $this->getSession()->getPage()->pressButton('Set cookie');
+
+        $this->getSession()->visit($this->pathTo('/issue140.php?show_value'));
+        $this->assertEquals('some:value;', $this->getSession()->getPage()->getText());
+    }
+
+    /**
      * @group issue131
      */
     public function testIssue131()
@@ -220,6 +234,12 @@ abstract class GeneralDriverTest extends TestCase
 
         $profileFormDivLabel = $profileFormDiv->find('css', 'label');
         $this->assertNotNull($profileFormDivLabel);
+
+        $profileFormDivParent = $profileFormDivLabel->getParent();
+        $this->assertNotNull($profileFormDivParent);
+
+        $profileFormDivParent = $profileFormDivLabel->getParent();
+        $this->assertEquals('something', $profileFormDivParent->getAttribute('data-custom'));
 
         $profileFormInput = $profileFormDivLabel->findField('user-name');
         $this->assertNotNull($profileFormInput);

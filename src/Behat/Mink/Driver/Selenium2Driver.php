@@ -108,13 +108,13 @@ class Selenium2Driver implements DriverInterface
      *
      * @return  array
      */
-    protected static function getDefaultCapabilities()
+    public static function getDefaultCapabilities()
     {
         return array(
             'browserName'    => 'firefox',
-            'version'        => '8',
+            'version'        => '9',
             'platform'       => 'ANY',
-            'browserVersion' => '8',
+            'browserVersion' => '9',
             'browser'        => 'firefox'
         );
     }
